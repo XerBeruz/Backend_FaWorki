@@ -49,6 +49,7 @@ process.on('SIGTERM', async () => {
   process.exit(0);
 });
 
+// Exportar la instancia de Prisma
 module.exports = {
   prisma,
   connectDatabase,
