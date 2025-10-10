@@ -11,7 +11,15 @@ const PORT = process.env.PORT || 3001;
 
 // Middlewares de seguridad y logging
 app.use(helmet());
-app.use(cors());
+// Configurar CORS con variables de entorno
+const corsOrigins = process.env.CORS_ORIGINS 
+  ? process.env.CORS_ORIGINS.split(',').map(origin => origin.trim())
+  : ['http://localhost:5173', 'https://faworki.vercel.app'];
+
+app.use(cors({
+  origin: corsOrigins,
+  credentials: true
+}));
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
