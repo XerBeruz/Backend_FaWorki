@@ -83,6 +83,11 @@ class Usuario {
    */
   static async emailExiste(email) {
     try {
+      // Verificar conexión a la base de datos
+      if (!prisma) {
+        throw new Error('Cliente de Prisma no inicializado');
+      }
+
       const usuario = await prisma.usuario.findUnique({
         where: { email },
         select: { id: true }
@@ -90,7 +95,23 @@ class Usuario {
       
       return !!usuario;
     } catch (error) {
-      throw new Error(`Error al verificar email: ${error.message}`);
+      console.error('Error detallado en emailExiste:', {
+        message: error.message,
+        code: error.code,
+        meta: error.meta,
+        email: email
+      });
+      
+      // Proporcionar mensajes de error más específicos
+      if (error.message.includes('Can\'t reach database server')) {
+        throw new Error('No se puede conectar al servidor de base de datos. Verifica la configuración de DATABASE_URL.');
+      } else if (error.message.includes('Invalid connection string')) {
+        throw new Error('URL de conexión a la base de datos inválida. Verifica el formato de DATABASE_URL.');
+      } else if (error.message.includes('Authentication failed')) {
+        throw new Error('Error de autenticación con la base de datos. Verifica las credenciales.');
+      } else {
+        throw new Error(`Error al verificar email: ${error.message}`);
+      }
     }
   }
 
