@@ -70,8 +70,18 @@ app.listen(PORT, async () => {
   console.log(`📊 Health check disponible en: http://localhost:${PORT}/health`);
   console.log(`🌐 API disponible en: http://localhost:${PORT}`);
   
-  // Conectar a la base de datos
-  await connectDatabase();
+  // Conectar a la base de datos (no crítico para el inicio del servidor)
+  try {
+    const dbConnected = await connectDatabase();
+    if (dbConnected) {
+      console.log('✅ Base de datos conectada correctamente');
+    } else {
+      console.log('⚠️  Base de datos no disponible, pero el servidor continúa funcionando');
+    }
+  } catch (error) {
+    console.error('❌ Error al conectar con la base de datos:', error.message);
+    console.log('⚠️  El servidor continúa funcionando sin base de datos');
+  }
 });
 
 module.exports = app;
