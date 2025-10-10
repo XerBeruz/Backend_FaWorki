@@ -1,1 +1,20 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo temporal para que Prisma funcione
+// Se puede eliminar cuando se agreguen los modelos reales
+model TempModel {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  
+  @@map("temp_table")
+}
