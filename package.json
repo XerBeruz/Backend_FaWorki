@@ -10,20 +10,25 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio"
   },
-  "keywords": ["api", "backend", "faworki", "freelance"],
+  "keywords": [
+    "api",
+    "backend",
+    "faworki",
+    "freelance"
+  ],
   "author": "FaWorKi Team",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
+    "@prisma/client": "^5.7.1",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
-    "helmet": "^7.1.0",
-    "morgan": "^1.10.0",
     "dotenv": "^16.3.1",
-    "@prisma/client": "^5.7.1"
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
     "prisma": "^5.7.1"
   }
 }
-

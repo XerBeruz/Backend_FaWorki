@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { connectDatabase } = require('./config/database');
+const routes = require('./routes');
 require('dotenv').config();
 
 const app = express();
@@ -34,12 +35,15 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Rutas de la aplicación
+app.use('/', routes);
+
 // Middleware para manejar rutas no encontradas
 app.use('*', (req, res) => {
   res.status(404).json({
     error: 'Ruta no encontrada',
     message: `La ruta ${req.originalUrl} no existe en esta API`,
-    availableRoutes: ['/', '/health']
+    availableRoutes: ['/', '/health', '/api']
   });
 });
 

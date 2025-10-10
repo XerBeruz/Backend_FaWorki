@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,11 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Modelo temporal para que Prisma funcione
-// Se puede eliminar cuando se agreguen los modelos reales
-model TempModel {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  
-  @@map("temp_table")
+model Usuario {
+  id              String      @id @default(cuid())
+  email           String      @unique
+  password        String
+  nombre          String
+  telefono        String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  apellido1       String
+  apellido2       String?
+  numeroDocumento String      @unique
+  tipoDocumento   String
+  trabajador      Trabajador?
+
+  @@map("usuarios")
+}
+
+model Trabajador {
+  id           String        @id @default(cuid())
+  usuarioId    String        @unique
+  estado       String        @default("pending") // pending, approved, rejected
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  certificados Certificado[]
+  usuario      Usuario       @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@map("trabajadores")
+}
+
+model Certificado {
+  id             String     @id @default(cuid())
+  trabajadorId   String
+  nombreArchivo  String
+  archivoUrl     String
+  createdAt      DateTime   @default(now())
+  trabajador     Trabajador @relation(fields: [trabajadorId], references: [id], onDelete: Cascade)
+
+  @@map("certificados")
 }
