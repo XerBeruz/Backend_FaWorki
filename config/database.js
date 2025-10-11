@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 
-// Configuración de Prisma Client optimizada para Render
+// Configuración de Prisma Client optimizada para Render con keep-alive
 const prisma = new PrismaClient({
   log: process.env.NODE_ENV === 'development' ? ['query', 'info', 'warn', 'error'] : ['error'],
   errorFormat: 'pretty',
@@ -17,6 +17,29 @@ const prisma = new PrismaClient({
     }
   }
 });
+
+// Función para mantener la conexión activa
+let keepAliveInterval;
+
+function startKeepAlive() {
+  if (keepAliveInterval) return;
+  
+  keepAliveInterval = setInterval(async () => {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      console.log('💓 Keep-alive ping exitoso');
+    } catch (error) {
+      console.error('❌ Error en keep-alive:', error.message);
+    }
+  }, 30000); // Ping cada 30 segundos
+}
+
+function stopKeepAlive() {
+  if (keepAliveInterval) {
+    clearInterval(keepAliveInterval);
+    keepAliveInterval = null;
+  }
+}
 
 // Función para conectar a la base de datos
 async function connectDatabase() {
@@ -38,6 +61,10 @@ async function connectDatabase() {
     
     await prisma.$connect();
     console.log('✅ Conexión a la base de datos establecida correctamente');
+    
+    // Iniciar keep-alive para mantener la conexión activa
+    startKeepAlive();
+    
     return true;
   } catch (error) {
     console.error('❌ Error al conectar con la base de datos:', error.message);
@@ -59,6 +86,9 @@ async function connectDatabase() {
 // Función para desconectar de la base de datos
 async function disconnectDatabase() {
   try {
+    // Detener keep-alive
+    stopKeepAlive();
+    
     await prisma.$disconnect();
     console.log('✅ Desconexión de la base de datos exitosa');
   } catch (error) {
@@ -85,5 +115,7 @@ process.on('SIGTERM', async () => {
 module.exports = {
   prisma,
   connectDatabase,
-  disconnectDatabase
+  disconnectDatabase,
+  startKeepAlive,
+  stopKeepAlive
 };
