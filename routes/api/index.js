@@ -1,12 +1,14 @@
 const express = require('express');
 const authRoutes = require('./authRoutes');
 const adminRoutes = require('./adminRoutes');
+const diagnosticRoutes = require('./diagnostic');
 
 const router = express.Router();
 
 // Rutas de la API
 router.use('/auth', authRoutes);
 router.use('/admin', adminRoutes);
+router.use('/diagnostic', diagnosticRoutes);
 
 // Ruta de información de la API
 router.get('/', (req, res) => {
@@ -24,6 +26,10 @@ router.get('/', (req, res) => {
         'PUT /api/admin/trabajadores/:id/aprobar': 'Aprobar trabajador',
         'PUT /api/admin/trabajadores/:id/rechazar': 'Rechazar trabajador',
         'GET /api/admin/estadisticas': 'Obtener estadísticas'
+      },
+      diagnostic: {
+        'GET /api/diagnostic/database': 'Diagnóstico de base de datos',
+        'GET /api/diagnostic/env': 'Verificar variables de entorno'
       }
     }
   });
