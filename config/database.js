@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 
-// Configuración de Prisma Client con manejo mejorado de errores
+// Configuración de Prisma Client optimizada para Render
 const prisma = new PrismaClient({
   log: process.env.NODE_ENV === 'development' ? ['query', 'info', 'warn', 'error'] : ['error'],
   errorFormat: 'pretty',
@@ -9,11 +9,11 @@ const prisma = new PrismaClient({
       url: process.env.DATABASE_URL
     }
   },
-  // Configuración de conexión mejorada
+  // Configuración optimizada para Render y Supabase
   __internal: {
     engine: {
-      connectTimeout: parseInt(process.env.DB_CONNECTION_TIMEOUT) || 10000,
-      queryTimeout: parseInt(process.env.DB_QUERY_TIMEOUT) || 30000,
+      connectTimeout: 30000, // 30 segundos
+      queryTimeout: 60000,   // 60 segundos
     }
   }
 });
