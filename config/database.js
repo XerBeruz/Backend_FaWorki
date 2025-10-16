@@ -1,4 +1,4 @@
-const { getPrismaClient, connectOptimized, disconnectOptimized } = require('./connection-pool');
+const { getPrismaClient, connectOptimized, disconnectOptimized } = require('./connection-pool.js');
 
 // Obtener instancia optimizada de Prisma
 const prisma = getPrismaClient();

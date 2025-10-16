@@ -3,6 +3,7 @@ services:
     name: faworki-backend
     env: node
     plan: free
+    rootDir: Backend_FaWorki
     buildCommand: pnpm install --frozen-lockfile && pnpm run build
     startCommand: pnpm start
     envVars:

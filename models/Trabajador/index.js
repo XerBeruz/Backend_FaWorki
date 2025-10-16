@@ -1,4 +1,4 @@
-const Trabajador = require('./Trabajador');
+const Trabajador = require('./Trabajador.js');
 
 module.exports = {
   Trabajador

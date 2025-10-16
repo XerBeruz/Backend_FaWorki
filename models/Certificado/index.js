@@ -1,4 +1,4 @@
-const Certificado = require('./Certificado');
+const Certificado = require('./Certificado.js');
 
 module.exports = {
   Certificado
