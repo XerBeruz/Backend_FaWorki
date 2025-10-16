@@ -12,10 +12,6 @@ services:
         value: 3001
       - key: DATABASE_URL
         sync: false  # Esto significa que debes configurarlo manualmente en el dashboard
-      - key: SUPABASE_URL
-        sync: false
-      - key: SUPABASE_ANON_KEY
-        sync: false
       - key: JWT_SECRET
         sync: false
       - key: CORS_ORIGINS
@@ -26,3 +22,4 @@ services:
         value: "30000"
       - key: DB_POOL_SIZE
         value: "10"
+

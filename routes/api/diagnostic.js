@@ -79,8 +79,6 @@ router.get('/env', (req, res) => {
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
     DATABASE_URL: process.env.DATABASE_URL ? 'Configurada' : 'No configurada',
-    SUPABASE_URL: process.env.SUPABASE_URL ? 'Configurada' : 'No configurada',
-    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ? 'Configurada' : 'No configurada',
     JWT_SECRET: process.env.JWT_SECRET ? 'Configurada' : 'No configurada',
     CORS_ORIGINS: process.env.CORS_ORIGINS,
     DB_CONNECTION_TIMEOUT: process.env.DB_CONNECTION_TIMEOUT,

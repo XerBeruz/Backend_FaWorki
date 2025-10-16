@@ -6,7 +6,7 @@ Backend API para la aplicación FaWorKi - Plataforma de trabajo freelance.
 
 - **Express.js**: Framework web para Node.js
 - **Prisma**: ORM para base de datos PostgreSQL
-- **Supabase**: Base de datos PostgreSQL en la nube
+- **PostgreSQL**: Base de datos relacional
 - **Nodemon**: Herramienta de desarrollo para reinicio automático
 - **Dotenv**: Gestión de variables de entorno
 
@@ -22,7 +22,7 @@ npm install
 # Copiar el archivo de ejemplo
 cp env.example .env
 
-# Editar .env con tus credenciales de Supabase
+# Editar .env con tus credenciales de base de datos
 ```
 
 3. Configurar la base de datos:
@@ -53,7 +53,7 @@ npm start
 
 ## 🗄️ Base de datos
 
-El proyecto usa Prisma como ORM para conectar con Supabase (PostgreSQL).
+El proyecto usa Prisma como ORM para conectar con PostgreSQL.
 
 ### Comandos útiles:
 ```bash

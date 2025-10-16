@@ -1,5 +1,5 @@
 const express = require('express');
-const { registrarTrabajador, iniciarSesion, obtenerPerfil } = require('../../controllers/Auth/authController');
+const { registrarTrabajador, iniciarSesion, obtenerPerfil } = require('../../controllers/Auth/AuthController');
 const { validateWorkerRegistration, validateLogin } = require('../../middleware/validation');
 
 const router = express.Router();

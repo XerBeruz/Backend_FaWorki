@@ -5,7 +5,6 @@
  * Maneja la inicialización de la base de datos de forma segura
  */
 
-const { PrismaClient } = require('@prisma/client');
 
 async function startProduction() {
   console.log('🚀 Iniciando FaWorKi Backend en modo producción...\n');
@@ -25,27 +24,13 @@ async function startProduction() {
   
   console.log('✅ Variables de entorno verificadas');
   
-  // Probar conexión a la base de datos
-  console.log('🔌 Probando conexión a la base de datos...');
+  console.log('🔌 Verificando configuración de base de datos...');
   
-  const prisma = new PrismaClient({
-    log: ['error'],
-    errorFormat: 'pretty'
-  });
-  
-  try {
-    await prisma.$connect();
-    console.log('✅ Conexión a la base de datos exitosa');
-    
-    // Probar una consulta simple
-    await prisma.$queryRaw`SELECT 1`;
-    console.log('✅ Base de datos funcionando correctamente');
-    
-    await prisma.$disconnect();
-    
-  } catch (error) {
-    console.error('❌ Error de conexión a la base de datos:', error.message);
-    console.log('⚠️  Continuando sin base de datos...');
+  if (process.env.DATABASE_URL) {
+    console.log('✅ DATABASE_URL configurada correctamente');
+  } else {
+    console.error('❌ DATABASE_URL no configurada');
+    process.exit(1);
   }
   
   // Iniciar el servidor
