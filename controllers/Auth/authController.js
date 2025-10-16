@@ -275,3 +275,4 @@ module.exports = {
   iniciarSesion: AuthController.iniciarSesion,
   obtenerPerfil: AuthController.obtenerPerfil
 };
+
