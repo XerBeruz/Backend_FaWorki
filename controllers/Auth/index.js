@@ -1,5 +1,7 @@
-const AuthController = require('./AuthController');
+const { registrarTrabajador, iniciarSesion, obtenerPerfil } = require('./AuthController');
 
 module.exports = {
-  AuthController
+  registrarTrabajador,
+  iniciarSesion,
+  obtenerPerfil
 };
