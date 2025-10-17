@@ -3,8 +3,8 @@ services:
     name: faworki-backend
     env: node
     plan: free
-    buildCommand: cd Backend_FaWorki && pnpm install --frozen-lockfile && pnpm run build
-    startCommand: cd Backend_FaWorki && pnpm start
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    startCommand: pnpm start
     envVars:
       - key: NODE_ENV
         value: production
